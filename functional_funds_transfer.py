@@ -66,7 +66,7 @@ def is_unique_id(id):
 def timestamp():
     return datetime.datetime.today()
 
-def is_policy_compliant(sending_account,outgoing_amount):
+def can_withdraw(sending_account,outgoing_amount):
     if outgoing_amount <= sending_account.balance():
         return True
     else:
@@ -83,7 +83,7 @@ def funds_transfer_interface(sender_id,receiver_id,amount):
     sender_account = return_account_by_id(sender_id);
     receiver_account = return_account_by_id(receiver_id);
     if sender_account != "not_found" and receiver_account != "not_found":
-        if is_policy_compliant(sender_account,amount):
+        if can_withdraw(sender_account,amount):
             # fix transaction date
             transaction_date = timestamp()
             # credit receiver account
