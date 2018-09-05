@@ -79,6 +79,28 @@ def valid_amount(amount):
     except:
         return False
 
+def query_balance_range_all(min,max):
+    # return all account objects with balance in a given range
+    try:
+        min,max = map(float([min,max]))
+        min = min([min,max])
+        max = max([min,max])
+        return [account for account in account_object_store if account.balance() >= min and account.balance() <= max]
+    except:
+        return "check your arguments"
+
+def account_statement_by_range(min,max):
+    accounts = query_balance_range_all(min,max)
+    if accounts not in ["check your arguments",[]]:
+        report = {}
+        for account in accounts:
+            report[account.id] = {}
+            report[account.id]["incoming"] = account.incoming
+            report[account.id]["outgoing"] = account.outgoing
+        return report
+    else:
+        return "there was no result for your query (check arguments)"
+
 def funds_transfer_interface(sender_id,receiver_id,amount):
     sender_account = return_account_by_id(sender_id);
     receiver_account = return_account_by_id(receiver_id);
