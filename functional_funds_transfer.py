@@ -82,7 +82,7 @@ def valid_amount(amount):
 def query_balance_range_all(min,max):
     # return all account objects with balance in a given range
     try:
-        min,max = map(float([min,max]))
+        min,max = map(float,[min,max])
         min = min([min,max])
         max = max([min,max])
         return [account for account in account_object_store if account.balance() >= min and account.balance() <= max]
